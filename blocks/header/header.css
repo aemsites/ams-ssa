@@ -1,0 +1,48 @@
+header {
+  background: rgb(3 31 59 / 90%);
+  color: #fff;
+  box-shadow:0 0 14px 1px rgb(0 0 0 / 10%);
+  transition: all 400ms;
+
+  &.top {
+    background: transparent;
+    box-shadow: unset;
+  }
+
+  &.invert {
+    background: rgb(255 255 255 / 80%);
+    color: #000;
+    transition: all 400ms;
+  }
+
+  div {
+    position: relative;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    height: inherit;
+    display: flex;
+    align-items: center;
+
+    .home {
+      position: absolute;
+      left: 40px;
+      display: flex;
+      align-items: center;
+
+
+      span {
+        font-weight: 300;
+        margin: 5px 0 0 10px;
+        opacity: .8;
+      }
+    }
+
+    .search {
+      position: absolute;
+      right: 40px;
+      height: 24px;
+      width: 24px;
+      cursor: pointer;
+    }
+  }
+}

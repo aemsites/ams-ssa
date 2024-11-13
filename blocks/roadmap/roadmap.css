@@ -1,0 +1,316 @@
+/* stylelint-disable declaration-block-single-line-max-declarations, no-descending-specificity, rule-empty-line-before, color-function-notation */
+main > .section > div.roadmap-wrapper {
+  --background: #232323;
+  --lines: #616161;
+  --index: 0;
+  --blue-rgb: 48, 135, 230;
+  --blue: rgb(var(--blue-rgb));
+  --pink-rgb: 228, 57, 179;
+  --pink: rgb(var(--pink-rgb));
+  --teal-rgb: 66, 213, 225;
+  --teal: rgb(var(--teal-rgb));
+  --yellow-rgb: 255, 206, 46;
+  --yellow: rgb(var(--yellow-rgb));
+  --purple-rgb: 99, 73, 224;
+  --purple: rgb(var(--purple-rgb));
+
+  box-shadow: 0 0 40px rgb(0 0 0 / 40%);
+  position: relative;
+  max-width: 100dvw;
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: #fff;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .roadmap {
+    width: min(100%, 2000px);
+
+    .heading {
+      padding: 30px 0 20px;
+      color: #fff;
+      font-size: var(--heading-font-size-xl);
+      font-weight: bold;
+      text-align: center;
+      span { font-weight: 300; opacity: .6 }
+    }
+
+    .disclaimer {
+      color: #fff;
+      font-size: var(--body-font-size-xs);
+      font-weight: 300;
+      text-align: center;
+      padding: 0 0 20px;
+      span { opacity: .5; margin: 0 10px; }
+    }
+
+    .timeline {
+      position: relative;
+      user-select: none;
+
+      ul { /* all list items */
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      ul.years { /* scrollable container */
+        display: flex;
+        flex-direction: row;
+        min-height: 780px;
+        line-height: 40px;
+        gap: 40px; /* Space between each year */
+        padding: 20px;
+        overflow: auto;
+
+
+
+        /* Loop colors using nth-child for repeating color classes */
+        li.y:nth-child(5n + 1) { --clr: var(--pink); --clr-rgb: var(--pink-rgb); }
+        li.y:nth-child(5n + 2) { --clr: var(--blue); --clr-rgb: var(--blue-rgb); }
+        li.y:nth-child(5n + 3) { --clr: var(--teal); --clr-rgb: var(--teal-rgb); }
+        li.y:nth-child(5n + 4) { --clr: var(--purple); --clr-rgb: var(--purple-rgb); }
+        li.y:nth-child(5n + 5) { --clr: var(--yellow); --clr-rgb: var(--yellow-rgb); }
+
+        li.y {
+          font-size: var(--heading-font-size-m);
+          font-weight: 400;
+          min-width: 380px; /* Minimum width for each year to ensure horizontal spacing */
+          /*max-width: 400px;*/
+          color: var(--clr);
+
+          > div {
+            margin-top: -40px;
+          }
+
+          &.fixed > div {
+            /*margin-top: 0;*/
+            position: sticky;
+            top: 0;
+            /*left: calc(50% - 50px);*/
+            background: var(--background);
+            z-index: 10;
+          }
+
+          ul.projects {
+            display: flex;
+            flex-direction: column; /* Display projects in a single line */
+            flex-wrap: nowrap; /* Prevent wrapping to the next line */
+            /*overflow-x: auto; /* Allow horizontal scrolling if needed */
+            padding: 10px 0;
+            margin: 0;
+            gap: 20px; /* Add space between project items */
+            position: relative;
+            z-index: 1;
+
+            li.p {
+              flex: 0 0 calc(33.33% - 20px); /* Ensure each project takes up 1/3 of the container minus gap */
+              padding: 10px;
+              background: var(--background);
+              border-left: 1px solid var(--clr); /* Match the border color with the year */
+              /*border-radius: 0px;*/
+              white-space: nowrap; /* Prevent text from wrapping */
+              text-align: center;
+              position: relative;
+              margin: 0 0 0 6px;
+              opacity: 0;
+              filter: blur(40px);
+              padding-left: 80px;
+              transition: all 340ms ease-out;
+              transition-delay: calc(var(--index) * 120ms);
+              z-index: 2; /* Ensure this is above any background elements */
+
+              /* Ensure the projects don’t shrink too much */
+              min-width: 200px;  /* Minimum width to ensure they don’t collapse */
+
+              &::before {
+                position: absolute;
+                content: '';
+                width: 10px;
+                height: 10px;
+                background: var(--background);
+                box-shadow: inset -34px 0 10px 4px var(--background);
+                border-radius: 50%;
+                left: -6.5px;
+                top: 15.5px;
+                scale: 1;
+                transition: all .5s;
+                border: 1px solid var(--clr); /* Match the border color with the year */
+              }
+
+              &:first-child::before { top: 34px; }
+
+              &:hover, &.active {
+                > div {
+                  color: #fff;
+                  font-weight: 600;
+                  letter-spacing: 0;
+                }
+                &::before { scale: 1.2; }
+              }
+
+              &:focus {
+                outline: none;
+              }
+
+              .tooltip {
+                max-height: 0;
+                overflow: hidden;
+                transition: all 1s ease-in-out;
+                font-weight: 300 !important;
+                letter-spacing: 0;
+
+                > div { padding: 20px 20px 10px; }
+
+                li.p.active & {
+                  font-weight: normal;
+                  max-height: 999px;
+                }
+              }
+
+              li.y.on & {
+                padding-left: 0;
+                filter: blur(0);
+                opacity: 1;
+              }
+
+
+
+              > div {
+                padding: 10px 100px 10px 14px;
+                margin: 0;
+                color: #d1d1d1;
+                font-weight: 500;
+                letter-spacing: .017em;
+                transition: color .5s, background .5s;
+
+                span {
+                  padding: 8px 0;
+                  cursor: pointer;
+                }
+
+                li.p:first-child & { padding-top: 30px; }
+                .btn { color: #fff; }
+              }
+
+              &:hover > div { background: linear-gradient(to right, rgba(var(--clr-rgb), .1), var(--background)); }
+              &.active > div { background: linear-gradient(to right, rgba(var(--clr-rgb), .4), var(--background)); }
+              .btn:hover {
+                background: transparent;
+                box-shadow: 0 0 10px 4px rgba(var(--clr-rgb), .6);
+                filter: brightness(1.1);
+              }
+            }
+          }
+        }
+      }
+
+      .left, .right {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: max(80px, calc((100vw - var(--page-max-width)) / 2));
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9;
+        background: linear-gradient(to right, var(--background), transparent);
+
+        @media (width >= 2000px) {
+          width: 15%;
+        }
+
+        &.disabled {
+          cursor: default;
+          > div { display: none; }
+        }
+
+        > div {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          position: absolute;
+          top: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: .8;
+          background: var(--background);
+          box-shadow: 0 0 10px 2px rgb(0 0 0 / 0%);
+          scale: 100%;
+          transition: all 120ms ease-in-out;
+
+          .left & { left: 30%; }
+          .right & { right: 30%; }
+          .left:hover & { left: 24%; }
+          .right:hover & { right: 24%; }
+
+          .left:hover &, .right:hover & {
+            scale: 130%;
+            opacity: 1;
+            box-shadow: 0 0 14px 2px #fff;
+          }
+
+          &::before {
+            content: '';
+            height: 14px;
+            width: 14px;
+            border-left: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            position: absolute;
+            top: 35%;
+            transition: all 12ms;
+          }
+          .left &::before {
+            left: 40%;
+            transform: rotate(45deg);
+          }
+          .right &::before {
+            right: 40%;
+            transform: rotate(-135deg);
+          }
+        }
+      }
+      .right {
+        left: unset;
+        right: 0;
+        background: linear-gradient(to left, var(--background), transparent);
+      }
+
+      .clr-0 { --clr: var(--pink); --clr-rgb: var(--pink-rgb); }
+      .clr-1 { --clr: var(--blue); --clr-rgb: var(--blue-rgb); }
+      .clr-2 { --clr: var(--teal); --clr-rgb: var(--teal-rgb); }
+      .clr-3 { --clr: var(--purple); --clr-rgb: var(--purple-rgb); }
+      .clr-4 { --clr: var(--yellow); --clr-rgb: var(--yellow-rgb); }
+
+      .clr-0, .clr-1, .clr-2, .clr-3, .clr-4 {
+        color: var(--clr);
+        li.y { background: var(--clr); }
+        li.p {
+          border-left: 1px solid var(--clr);
+          &::before { border: 1px solid var(--clr); }
+          &:hover, &.active {
+            &::before {
+              background: var(--clr) !important;
+              box-shadow: 0 0 10px 2px var(--clr) !important;
+              border: 1px solid var(--clr) !important;
+              filter: brightness(1.1);
+            }
+          }
+          &:hover > div { background: linear-gradient(to right, rgba(var(--clr-rgb), .1), var(--background)); }
+          &.active > div { background: linear-gradient(to right, rgba(var(--clr-rgb), .4), var(--background)); }
+          .btn:hover {
+            background: transparent;
+            box-shadow: 0 0 10px 4px rgba(var(--clr-rgb), .6);
+            filter: brightness(1.1);
+          }
+        }
+      }
+    }
+  }
+}
