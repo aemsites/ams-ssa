@@ -1,8 +1,104 @@
+html {
+  scroll-behavior: smooth;
+}
+
+ul.nav {
+  position: absolute;
+  right: 0;
+  display: flex;
+  list-style: none;
+  gap: 20px;
+
+  @media (width <= 1400px) {
+    gap: 10px;
+  }
+
+  @media (width <= 1200px) {
+    gap: 0;
+  }
+
+  @media (width <= 1100px) {
+    display: none;
+  }
+
+  li {
+    position: relative;
+    opacity: .8;
+
+    &:first-child { display: none }
+
+    a {
+      font-weight: 200;
+      cursor: pointer;
+      padding: 6px 10px;
+      transition: 0.3s ease;
+
+      .top & {
+        text-shadow: 1px 1px 6px rgb(0 0 0 / 80%);
+      }
+    }
+
+    &:hover {
+      color: var(--blue);
+    }
+
+    &.active {
+      opacity: 1;
+      a { color: var(--blue) }
+    }
+  }
+}
+
+
+
+.next {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  width: 180px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .4;
+  background: transparent;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    bottom: 0;
+    opacity: .6;
+  }
+
+  .section:last-child & { display: none }
+
+  /* arrow */
+  &::before {
+    content: '';
+    height: 18px;
+    width: 18px;
+    border-left: 2px solid var(--dark-background);
+    border-bottom: 2px solid var(--dark-background);
+    position: absolute;
+    top: 35%;
+    transition: all 12ms;
+    transform: rotate(-45deg);
+  }
+
+  .dark &::before {
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+  }
+}
+
+
 header {
   background: rgb(3 31 59 / 90%);
   color: #fff;
-  box-shadow:0 0 14px 1px rgb(0 0 0 / 10%);
-  transition: all 400ms;
+  box-shadow: 0 0 14px 1px rgb(0 0 0 / 10%);
+  transition: all 200ms;
 
   &.top {
     background: transparent;
@@ -12,7 +108,6 @@ header {
   &.invert {
     background: rgb(255 255 255 / 80%);
     color: #000;
-    transition: all 400ms;
   }
 
   div {
@@ -29,11 +124,10 @@ header {
       display: flex;
       align-items: center;
 
-
       span {
         font-weight: 300;
         margin: 5px 0 0 10px;
-        opacity: .8;
+
       }
     }
 
