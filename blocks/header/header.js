@@ -113,11 +113,20 @@ function createNav($header) {
       $nav.appendChild($li);
       navItems.push({ section, listItem: $li });
 
+      // Add click event to update URL hash without jumping
+      $li.querySelector('a').addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the default link behavior
+        document.getElementById(section.id).scrollIntoView({ behavior: 'smooth' });
+
+        // Update the URL hash
+        history.pushState(null, null, `#${section.id}`);
+      });
+
       // Store the section for scrolling
       sections.push(section);
 
       // Create the "Next Section" button and append it to the section
-      const button = a({ class: 'next' });
+      const button = a({ class: 'btn-next-section' }, div({ class: 'bar' }), div({ class: 'arrow' }));
       button.addEventListener('click', () => {
         const nextSection = sections[index + 1];
         if (nextSection) {

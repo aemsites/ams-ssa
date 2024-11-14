@@ -9,17 +9,11 @@ ul.nav {
   list-style: none;
   gap: 20px;
 
-  @media (width <= 1400px) {
-    gap: 10px;
-  }
+  @media (width <= 1400px) { gap: 10px }
 
-  @media (width <= 1200px) {
-    gap: 0;
-  }
+  @media (width <= 1200px) { gap: 0 }
 
-  @media (width <= 1100px) {
-    display: none;
-  }
+  @media (width <= 1100px) { display: none }
 
   li {
     position: relative;
@@ -33,9 +27,7 @@ ul.nav {
       padding: 6px 10px;
       transition: 0.3s ease;
 
-      .top & {
-        text-shadow: 1px 1px 6px rgb(0 0 0 / 80%);
-      }
+      .top & { text-shadow: 1px 1px 6px rgb(0 0 0) }
     }
 
     &:hover {
@@ -50,47 +42,59 @@ ul.nav {
 }
 
 
-
-.next {
+.btn-next-section {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  cursor: pointer;
-  width: 180px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   height: 60px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: .4;
-  background: transparent;
   transition: all 200ms ease-in-out;
 
-  &:hover {
-    bottom: 0;
-    opacity: .6;
-  }
-
-  .section:last-child & { display: none }
-
-  /* arrow */
-  &::before {
+  .arrow {
     content: '';
     height: 18px;
     width: 18px;
     border-left: 2px solid var(--dark-background);
     border-bottom: 2px solid var(--dark-background);
     position: absolute;
-    top: 35%;
-    transition: all 12ms;
+    bottom: 40px;
+    opacity: .4;
+    transition: all 200ms ease-out;
     transform: rotate(-45deg);
+    .dark & { border-color: #fff }
   }
 
-  .dark &::before {
-    border-left: 2px solid #fff;
-    border-bottom: 2px solid #fff;
+  .bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: #021930;
+    transition: all 200ms ease-out;
+    .dark & { background: #fff }
   }
+
+  &:hover {
+    .arrow {
+      bottom: 20px;
+      border-color: #fff;
+      transition-delay: 100ms; /* delay so doesn't appear on mouse over */
+      .dark & { border-color: var(--dark-background) }
+    }
+
+    .bar {
+      height: 60px;
+      cursor: pointer;
+      transition-delay: 100ms; /* delay so doesn't appear on mouse over */
+    }
+  }
+
+  /* hide last btn - there's nothing after it */
+  .section:last-child & { display: none }
 }
 
 
