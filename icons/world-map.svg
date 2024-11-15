@@ -8,7 +8,8 @@
       #ssa,
       #us *,
       #ca *,
-      #au *
+      #au *,
+      #cn *
       { fill: #1374d7 }
 
       <!-- pre countries -->
