@@ -14,8 +14,7 @@
 
       <!-- pre countries -->
       #pre,
-      #es *,
-      #cn *
+      #es *
       { fill: #8acaff }
 
       .txt * { fill: #fff }
